@@ -43,22 +43,57 @@ flag HLint
     default: False
     manual: True
 
-flag lens
-    description: use the full lens package
-    default: False
-    manual: True
-
 flag show-internal
     description: instance Show of internal representation
     default: False
     manual: True
 
+library thyme-internal
+    default-language: Haskell2010
+    include-dirs: include
+    visibility: private
+    hs-source-dirs: src-internal
+    exposed-modules:
+        Data.Thyme.Calendar.Internal
+        Data.Thyme.Clock.Internal
+        Data.Thyme.Format.Internal
+        Data.Thyme.Internal.Micro
+    if os(darwin) || os(freebsd)
+        build-tools: cpphs
+        ghc-options: -pgmP cpphs -optP--cpp
+    build-depends:
+        base >= 4.5 && < 5,
+        QuickCheck >= 2.4,
+        attoparsec >= 0.10,
+        bytestring >= 0.9,
+        deepseq >= 1.2,
+        hashable >= 1.2,
+        mtl >= 1.1,
+        lens >= 3.9,
+        random,
+        text >= 0.11,
+        vector >= 0.9,
+        vector-th-unbox >= 0.2.1.0,
+        vector-space >= 0.8
+
+library thyme-posix
+    default-language: Haskell2010
+    visibility: private
+    build-tools: hsc2hs
+    hs-source-dirs: src-posix
+    exposed-modules:
+        Data.Thyme.Clock.POSIX
+    build-depends:
+        base >= 4.5 && < 5,
+        bytestring >= 0.9,
+        lens >= 3.9,
+        vector-space >= 0.8,
+        thyme-internal
+
 library
     default-language: Haskell2010
     include-dirs: include
     hs-source-dirs: src
-    if !(flag(lens) || flag(docs))
-        hs-source-dirs: lens
     exposed-modules:
         Data.Thyme
         Data.Thyme.Docs
@@ -68,21 +103,16 @@ library
         Data.Thyme.Calendar.WeekDate
         Data.Thyme.Calendar.WeekdayOfMonth
         Data.Thyme.Clock
-        Data.Thyme.Clock.POSIX
         Data.Thyme.Clock.TAI
         Data.Thyme.Format
         Data.Thyme.Format.Human
         Data.Thyme.Format.Aeson
-        Data.Thyme.Internal.Micro
         Data.Thyme.LocalTime
         Data.Thyme.Time
         Data.Thyme.Time.Core
-    other-modules:
-        Data.Thyme.Calendar.Internal
-        Data.Thyme.Clock.Internal
-        Data.Thyme.Format.Internal
-    if !(flag(lens) || flag(docs))
-        other-modules: Control.Lens
+    reexported-modules:
+        Data.Thyme.Clock.POSIX,
+        Data.Thyme.Internal.Micro
     build-depends:
         QuickCheck >= 2.4,
         attoparsec >= 0.10,
@@ -92,12 +122,15 @@ library
         containers >= 0.5,
         deepseq >= 1.2,
         hashable >= 1.2,
+        lens >= 3.9,
         mtl >= 1.1,
         old-locale >= 1.0,
         random,
         text >= 0.11,
         time >= 1.4,
         true-name >= 0.1.0.1,
+        thyme-posix,
+        thyme-internal,
         vector >= 0.9,
         vector-th-unbox >= 0.2.1.0,
         vector-space >= 0.8
@@ -106,10 +139,6 @@ library
     if os(darwin) || os(freebsd)
         build-tools: cpphs
         ghc-options: -pgmP cpphs -optP--cpp
-    if flag(lens) || flag(docs)
-        build-depends: lens >= 3.9
-    else
-        build-depends: profunctors >= 3.1.2
     if flag(docs)
         build-depends: integer-gmp, ghc-prim
     ghc-options: -Wall
@@ -122,26 +151,19 @@ test-suite sanity
     default-language: Haskell2010
     type: exitcode-stdio-1.0
     hs-source-dirs: tests
-    if !flag(lens)
-        hs-source-dirs: lens
     main-is: sanity.hs
     other-modules: Common
-    if !flag(lens)
-        other-modules: Control.Lens
     build-depends:
         QuickCheck,
         attoparsec,
         base,
         bytestring,
         old-locale,
+        lens,
         text,
         thyme,
         time,
         vector-space
-    if flag(lens)
-        build-depends: lens
-    else
-        build-depends: profunctors, mtl
     ghc-options: -Wall
 
 test-suite rewrite
@@ -171,16 +193,13 @@ benchmark bench
     default-language: Haskell2010
     type: exitcode-stdio-1.0
     hs-source-dirs: tests
-    if !flag(lens)
-        hs-source-dirs: lens
     main-is: bench.hs
     other-modules: Common
-    if !flag(lens)
-        other-modules: Control.Lens
     build-depends:
         QuickCheck,
         base,
         criterion,
+        lens,
         mtl,
         old-locale,
         random,
@@ -188,10 +207,6 @@ benchmark bench
         time,
         vector,
         vector-space
-    if flag(lens)
-        build-depends: lens
-    else
-        build-depends: profunctors
     ghc-options: -Wall
 
 -- vim: et sw=4 ts=4 sts=4:

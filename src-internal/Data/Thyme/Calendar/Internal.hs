@@ -13,11 +13,6 @@
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_HADDOCK hide #-}
 
-#include "thyme.h"
-#if HLINT
-#include "cabal_macros.h"
-#endif
-
 module Data.Thyme.Calendar.Internal where
 
 import Prelude
@@ -44,6 +39,11 @@ import Data.Vector.Unboxed.Deriving
 import GHC.Generics (Generic)
 import System.Random
 import Test.QuickCheck hiding ((.&.))
+
+#include "thyme.h"
+#if HLINT
+#include "cabal_macros.h"
+#endif
 
 -- | A duration/count of years.
 type Years = Int
@@ -206,6 +206,9 @@ data YearMonthDay = YearMonthDay
     , ymdDay :: {-# UNPACK #-}!DayOfMonth
     } deriving (INSTANCES_USUAL, Show)
 
+-- {-# INLINE _ymdYear #-}
+-- _ymdYear :: Lens' YearMonthDay Year
+-- _ymdYear YearMonthDay{..} ymdYear_ = YearMonthDay{ ymdYear= ymdYear_, ..}
 LENS(YearMonthDay,ymdYear,Year)
 LENS(YearMonthDay,ymdMonth,Month)
 LENS(YearMonthDay,ymdDay,DayOfMonth)

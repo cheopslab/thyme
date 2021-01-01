@@ -10,11 +10,6 @@
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-#include "thyme.h"
-#if HLINT
-#include "cabal_macros.h"
-#endif
-
 -- | Local time and time zones.
 module Data.Thyme.LocalTime
     ( Hour, Minute
@@ -51,6 +46,11 @@ import Data.VectorSpace
 import GHC.Generics (Generic)
 import System.Random
 import Test.QuickCheck hiding ((.&.))
+
+#include "thyme.h"
+#if HLINT
+#include "cabal_macros.h"
+#endif
 
 -- | Hours duration.
 type Hours = Int

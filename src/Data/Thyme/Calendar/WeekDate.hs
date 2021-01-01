@@ -6,11 +6,6 @@
 {-# OPTIONS_GHC -fsimpl-tick-factor=120 #-} -- 7.6.3 only, it seems; fixes #29
 #endif
 
-#include "thyme.h"
-#if HLINT
-#include "cabal_macros.h"
-#endif
-
 -- | Various Week Date formats
 module Data.Thyme.Calendar.WeekDate
     ( Year, WeekOfYear, DayOfWeek
@@ -39,6 +34,11 @@ import Data.Thyme.Calendar.OrdinalDate
 import Data.Thyme.Calendar.Internal
 import System.Random
 import Test.QuickCheck
+
+#include "thyme.h"
+#if HLINT
+#include "cabal_macros.h"
+#endif
 
 instance Bounded WeekDate where
     minBound = minBound ^. weekDate

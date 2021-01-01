@@ -9,12 +9,6 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE ViewPatterns #-}
 
-#include "thyme.h"
-#if HLINT
-#include "cabal_macros.h"
-#endif
-
-#define TAIUTCDAT @<http://maia.usno.navy.mil/ser7/tai-utc.dat tai-utc.dat>@
 
 -- | <https://en.wikipedia.org/wiki/International_Atomic_Time International Atomic Time>
 -- (TAI) and conversion to/from UTC, accounting for leap seconds.
@@ -36,6 +30,13 @@ module Data.Thyme.Clock.TAI
     , utcToTAITime
     , taiToUTCTime
     ) where
+
+#include "thyme.h"
+#if HLINT
+#include "cabal_macros.h"
+#endif
+
+#define TAIUTCDAT @<http://maia.usno.navy.mil/ser7/tai-utc.dat tai-utc.dat>@
 
 import Prelude
 #if !MIN_VERSION_base(4,8,0)

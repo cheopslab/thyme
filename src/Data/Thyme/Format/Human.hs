@@ -3,11 +3,6 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE ViewPatterns #-}
 
-#include "thyme.h"
-#if HLINT
-#include "cabal_macros.h"
-#endif
-
 -- | Vague textual descriptions of time durations.
 module Data.Thyme.Format.Human
     ( humanTimeDiff
@@ -30,6 +25,11 @@ import Data.Thyme.Internal.Micro
 import Data.Monoid
 import Data.Thyme.Clock.Internal
 import Data.VectorSpace
+
+#include "thyme.h"
+#if HLINT
+#include "cabal_macros.h"
+#endif
 
 data Unit = Unit
     { unit :: Micro

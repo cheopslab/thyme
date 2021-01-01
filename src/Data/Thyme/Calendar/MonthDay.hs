@@ -2,8 +2,6 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE ViewPatterns #-}
 
-#include "thyme.h"
-
 -- | Calendar months and day-of-months.
 module Data.Thyme.Calendar.MonthDay
     ( Month, DayOfMonth
@@ -15,6 +13,8 @@ module Data.Thyme.Calendar.MonthDay
 import Prelude
 import Control.Lens
 import Data.Thyme.Calendar.Internal
+
+#include "thyme.h"
 
 -- * Compatibility
 

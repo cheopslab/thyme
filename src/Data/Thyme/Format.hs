@@ -4,7 +4,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
-#include "thyme.h"
 
 -- | Formatting and parsing for dates and times.
 module Data.Thyme.Format
@@ -54,6 +53,8 @@ import Data.Time.Format (TimeLocale (..), defaultTimeLocale)
 #else
 import System.Locale
 #endif
+
+#include "thyme.h"
 
 -- | All instances of this class may be formatted by 'formatTime'.
 class FormatTime t where

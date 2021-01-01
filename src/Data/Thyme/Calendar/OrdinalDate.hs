@@ -3,11 +3,6 @@
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-#include "thyme.h"
-#if HLINT
-#include "cabal_macros.h"
-#endif
-
 -- | ISO 8601 Ordinal Date format
 module Data.Thyme.Calendar.OrdinalDate
     ( Year, isLeapYear
@@ -28,6 +23,11 @@ import Data.Thyme.Calendar
 import Data.Thyme.Calendar.Internal
 import System.Random
 import Test.QuickCheck
+
+#include "thyme.h"
+#if HLINT
+#include "cabal_macros.h"
+#endif
 
 instance Bounded OrdinalDate where
     minBound = minBound ^. ordinalDate

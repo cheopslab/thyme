@@ -2,10 +2,6 @@
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_HADDOCK hide #-}
 
-#if HLINT
-#include "cabal_macros.h"
-#endif
-
 module Data.Thyme.Format.Internal where
 
 import Prelude
@@ -26,6 +22,11 @@ import qualified Data.ByteString.Lazy.Builder as B
 # endif
 import qualified Data.ByteString.Lazy as L
 #endif
+
+#if HLINT
+#include "cabal_macros.h"
+#endif
+
 
 {-# INLINE utf8Char #-}
 {-# INLINE utf8String #-}

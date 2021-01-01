@@ -7,8 +7,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 
-#include "thyme.h"
-
 -- | FOR INTERNAL USE ONLY.
 module Data.Thyme.Internal.Micro where
 
@@ -40,6 +38,8 @@ import Text.ParserCombinators.ReadPrec
 import Text.ParserCombinators.ReadP
 import Text.Read
 #endif
+
+#include "thyme.h"
 
 newtype Micro = Micro Int64 deriving (INSTANCES_MICRO)
 

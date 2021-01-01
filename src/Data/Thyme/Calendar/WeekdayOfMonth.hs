@@ -7,11 +7,6 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE ViewPatterns #-}
 
-#include "thyme.h"
-#if HLINT
-#include "cabal_macros.h"
-#endif
-
 -- | Calendar date reckoned by year, month-of-year, and n-th day-of-week.
 module Data.Thyme.Calendar.WeekdayOfMonth
     ( Year, Month, DayOfWeek
@@ -40,6 +35,11 @@ import Data.Vector.Unboxed.Deriving
 import GHC.Generics (Generic)
 import System.Random
 import Test.QuickCheck hiding ((.&.))
+
+#include "thyme.h"
+#if HLINT
+#include "cabal_macros.h"
+#endif
 
 -- | Calendar date with year, month-of-year, and n-th day-of-week.
 data WeekdayOfMonth = WeekdayOfMonth

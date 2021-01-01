@@ -3,11 +3,6 @@
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-#include "thyme.h"
-#if HLINT
-#include "cabal_macros.h"
-#endif
-
 -- | Calendar calculations.
 --
 -- Note that 'UTCTime' is not Y294K-compliant, and 'Bounded' instances for
@@ -30,6 +25,11 @@ module Data.Thyme.Calendar
     , yearMonthDay, gregorian, gregorianValid, showGregorian
     , module Data.Thyme.Calendar
     ) where
+
+#include "thyme.h"
+#if HLINT
+#include "cabal_macros.h"
+#endif
 
 import Prelude hiding ((.))
 #if !MIN_VERSION_base(4,8,0)

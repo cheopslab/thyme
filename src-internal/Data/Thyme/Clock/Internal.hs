@@ -14,8 +14,6 @@
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_HADDOCK hide #-}
 
-#include "thyme.h"
-
 module Data.Thyme.Clock.Internal where
 
 import Prelude
@@ -46,6 +44,8 @@ import Text.ParserCombinators.ReadPrec (lift)
 import Text.ParserCombinators.ReadP (char)
 import Text.Read (readPrec)
 #endif
+
+#include "thyme.h"
 
 -- | Hour time-of-day.
 type Hour = Int
